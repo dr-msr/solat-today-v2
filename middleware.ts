@@ -13,6 +13,8 @@ export async function middleware(req: NextRequest) {
   const country = geo.country || 'US'
   const city = geo.city || 'San Francisco'
   const region = geo.countryRegion || 'CA'
+  const lat = geo.latitude || 37.7749
+  const lon = geo.longitude || -122.4194
 
   const countryInfo = countries.find((x) => x.cca2 === country)
 
@@ -27,6 +29,9 @@ export async function middleware(req: NextRequest) {
   url.searchParams.set('currencySymbol', currency.symbol)
   url.searchParams.set('name', currency.name)
   url.searchParams.set('languages', languages)
+  url.searchParams.set('latitude', lat.toString())
+  url.searchParams.set('longitude', lon.toString())
+
 
   return NextResponse.rewrite(url)
 }
